@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aniruddha Raje — Backend Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0e1013;
+    --bg-alt: #14171b;
+    --surface: #1a1e23;
+    --surface-hover: #20252b;
+    --border: #2a2f36;
+    --border-soft: #21252b;
+    --text: #ece8e0;
+    --text-dim: #9aa0a8;
+    --text-faint: #5c636c;
+    --amber: #e3a857;
+    --amber-dim: #b98a45;
+    --teal: #5fa89a;
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before{
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 15% 8%, rgba(227,168,87,0.06), transparent 45%),
+      radial-gradient(circle at 85% 92%, rgba(95,168,154,0.05), transparent 45%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  a{ color: inherit; text-decoration: none; }
+  ::selection{ background: var(--amber); color: #14171b; }
+
+  :focus-visible{
+    outline: 2px solid var(--amber);
+    outline-offset: 3px;
+  }
+
+  .wrap{
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 28px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(14,16,19,0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  nav{
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 18px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo{
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--text);
+    letter-spacing: 0.02em;
+  }
+  .logo span{ color: var(--amber); }
+  .nav-links{
+    display: flex;
+    gap: 28px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  .nav-links a{ transition: color 0.2s ease; }
+  .nav-links a:hover{ color: var(--amber); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding: 88px 0 70px;
+  }
+  .eyebrow{
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--teal);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow::before{
+    content: "";
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--teal);
+    box-shadow: 0 0 0 3px rgba(95,168,154,0.15);
+  }
+
+  .hero-grid{
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  h1{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2.3rem, 4.4vw, 3.4rem);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    margin-bottom: 18px;
+  }
+  h1 em{
+    font-style: normal;
+    color: var(--amber);
+  }
+
+  .hero-sub{
+    color: var(--text-dim);
+    font-size: 17px;
+    max-width: 46ch;
+    margin-bottom: 30px;
+  }
+
+  .hero-meta{
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-faint);
+    margin-bottom: 34px;
+  }
+  .hero-meta span{ color: var(--text-dim); }
+
+  .hero-actions{ display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn{
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+    padding: 12px 22px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-primary{
+    background: var(--amber);
+    color: #16130d;
+    border-color: var(--amber);
+    font-weight: 500;
+  }
+  .btn-primary:hover{ background: #eeb96a; }
+  .btn-ghost{ color: var(--text); }
+  .btn-ghost:hover{ border-color: var(--amber-dim); color: var(--amber); }
+
+  /* ---------- TERMINAL ---------- */
+  .terminal{
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px -20px rgba(0,0,0,0.6);
+  }
+  .term-bar{
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-soft);
+    background: rgba(255,255,255,0.015);
+  }
+  .term-dot{ width: 10px; height: 10px; border-radius: 50%; background: #3a3f46; }
+  .term-title{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-faint);
+    margin-left: 8px;
+  }
+  .term-body{
+    padding: 22px 20px;
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+    min-height: 210px;
+  }
+  .term-line{ display: flex; gap: 10px; margin-bottom: 12px; color: var(--text-dim); }
+  .term-prompt{ color: var(--teal); flex-shrink: 0; }
+  .term-out{ color: var(--text); }
+  .term-out .k{ color: var(--amber); }
+  .cursor{
+    display: inline-block;
+    width: 7px; height: 15px;
+    background: var(--amber);
+    margin-left: 2px;
+    animation: blink 1s steps(2) infinite;
+    vertical-align: text-bottom;
+  }
+  @keyframes blink{ 50%{ opacity: 0; } }
+
+  /* ---------- SECTION LABELS ---------- */
+  .section{ padding: 64px 0; border-top: 1px solid var(--border-soft); }
+  .comment{
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-faint);
+    margin-bottom: 8px;
+  }
+  .comment::before{ content: "// "; color: var(--teal); }
+  .section h2{
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600;
+    margin-bottom: 34px;
+  }
+
+  /* ---------- STACK ---------- */
+  .stack-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border-soft);
+    border: 1px solid var(--border-soft);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .stack-cat{
+    background: var(--bg-alt);
+    padding: 24px 26px;
+  }
+  .stack-cat h3{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--teal);
+    margin-bottom: 14px;
+  }
+  .pill-row{ display: flex; flex-wrap: wrap; gap: 9px; }
+  .pill{
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+  }
+  .pill:hover{ color: var(--amber); border-color: var(--amber-dim); }
+
+  /* ---------- PROJECTS ---------- */
+  .proj-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .proj-card{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .proj-card:hover{
+    border-color: var(--amber-dim);
+    background: var(--surface-hover);
+    transform: translateY(-3px);
+  }
+  .proj-top{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .proj-name{
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .proj-arrow{ color: var(--text-faint); transition: transform 0.2s ease, color 0.2s ease; }
+  .proj-card:hover .proj-arrow{ transform: translate(3px,-3px); color: var(--amber); }
+  .proj-desc{ color: var(--text-dim); font-size: 13.5px; flex-grow: 1; }
+  .proj-lang{
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-faint);
+  }
+  .lang-dot{ width: 8px; height: 8px; border-radius: 50%; }
+  .lang-java{ background: var(--amber); }
+  .lang-js{ background: var(--teal); }
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  .contact{
+    padding: 70px 0 40px;
+    border-top: 1px solid var(--border-soft);
+    text-align: center;
+  }
+  .contact h2{
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+    margin-bottom: 14px;
+  }
+  .contact p{ color: var(--text-dim); margin-bottom: 30px; }
+  .contact .btn{ font-size: 14px; padding: 13px 26px; }
+
+  footer{
+    padding: 26px 0 50px;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-faint);
+  }
+
+  @media (max-width: 760px){
+    .hero-grid{ grid-template-columns: 1fr; }
+    .stack-grid, .proj-grid{ grid-template-columns: 1fr; }
+    .nav-links{ display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    .cursor{ animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">aniruddha<span>@</span>raje</div>
+    <div class="nav-links">
+      <a href="#stack">stack</a>
+      <a href="#projects">projects</a>
+      <a href="#contact">contact</a>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">available for Senior Software Engineer roles</div>
+        <h1>Building reliable<br><em>microservices</em>.</h1>
+        <p class="hero-sub">Hands-on software professional with 10 years of experience designing solutions, architecting systems, and developing cloud-native backend microservices on AWS using Node.js, Python, and Java.</p>
+        <div class="hero-meta">
+          <span>📍 Melbourne, Victoria</span>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://github.com/aniruddha-raje" target="_blank" rel="noopener">View GitHub profile →</a>
+        </div>
+      </div>
+
+      <div class="terminal">
+        <div class="term-bar">
+          <div class="term-dot"></div><div class="term-dot"></div><div class="term-dot"></div>
+          <div class="term-title">aniruddha@pune ~ </div>
+        </div>
+        <div class="term-body" id="termBody"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="stack">
+    <div class="comment">skills.md</div>
+    <h2>Stack</h2>
+    <div class="stack-grid">
+      <div class="stack-cat">
+        <h3>Backend</h3>
+        <div class="pill-row">
+          <span class="pill">Node.js</span>
+          <span class="pill">Python</span>
+          <span class="pill">Java</span>
+        </div>
+      </div>
+      <div class="stack-cat">
+        <h3>Databases</h3>
+        <div class="pill-row">
+          <span class="pill">MongoDB</span>
+          <span class="pill">PostgreSQL</span>
+          <span class="pill">MySQL</span>
+          <span class="pill">Amazon DynamoDB</span>
+        </div>
+      </div>
+      <div class="stack-cat">
+        <h3>Frameworks</h3>
+        <div class="pill-row">
+          <span class="pill">Express.js</span>
+          <span class="pill">FastAPI</span>
+          <span class="pill">Spring Boot</span>
+          <span class="pill">Quarkus</span>
+        </div>
+      </div>
+      <div class="stack-cat">
+        <h3>Version Control</h3>
+        <div class="pill-row">
+          <span class="pill">Bitbucket</span>
+          <span class="pill">GitLab</span>
+          <span class="pill">GitHub</span>
+        </div>
+      </div>
+      <div class="stack-cat">
+        <h3>Build &amp; Automation Tools</h3>
+        <div class="pill-row">
+          <span class="pill">Serverless Framework</span>
+          <span class="pill">Jenkins</span>
+          <span class="pill">Docker</span>
+          <span class="pill">AWS CloudFormation</span>
+          <span class="pill">Terraform</span>
+        </div>
+      </div>
+      <div class="stack-cat">
+        <h3>Code Quality</h3>
+        <div class="pill-row">
+          <span class="pill">SonarQube</span>
+          <span class="pill">Wiz</span>
+          <span class="pill">CloudDefense</span>
+        </div>
+      </div>
+      <div class="stack-cat">
+        <h3>Application Logging</h3>
+        <div class="pill-row">
+          <span class="pill">SLF4J</span>
+          <span class="pill">AWS CloudWatch</span>
+        </div>
+      </div>
+      <div class="stack-cat">
+        <h3>Unit Testing</h3>
+        <div class="pill-row">
+          <span class="pill">pytest</span>
+          <span class="pill">JUnit</span>
+          <span class="pill">Jest</span>
+          <span class="pill">Postman</span>
+        </div>
+      </div>
+      <div class="stack-cat">
+        <h3>Design Tools</h3>
+        <div class="pill-row">
+          <span class="pill">OpenAPI Specification</span>
+          <span class="pill">Swagger</span>
+          <span class="pill">Draw.io</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="projects">
+    <div class="comment">git log --recent</div>
+    <h2>Projects</h2>
+    <div class="proj-grid">
+
+      <a class="proj-card" href="https://github.com/aniruddha-raje/FastAPI-crud" target="_blank" rel="noopener">
+        <div class="proj-top">
+          <span class="proj-name">FastAPI-crud</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+        <p class="proj-desc">A CRUD service built with FastAPI, covering create/read/update/delete endpoints on a Python backend.</p>
+        <div class="proj-lang"><span class="lang-dot" style="background:var(--teal)"></span>Python</div>
+      </a>
+
+      <a class="proj-card" href="https://github.com/aniruddha-raje/typescript-express" target="_blank" rel="noopener">
+        <div class="proj-top">
+          <span class="proj-name">typescript-express</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+        <p class="proj-desc">An Express.js API written in TypeScript, structuring routes and middleware with static typing.</p>
+        <div class="proj-lang"><span class="lang-dot lang-js"></span>TypeScript</div>
+      </a>
+
+      <a class="proj-card" href="https://github.com/aniruddha-raje/springboot-postgres-app" target="_blank" rel="noopener">
+        <div class="proj-top">
+          <span class="proj-name">springboot-postgres-app</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+        <p class="proj-desc">A Spring Boot service backed by PostgreSQL, pairing the framework's REST layer with relational persistence.</p>
+        <div class="proj-lang"><span class="lang-dot lang-java"></span>Java</div>
+      </a>
+
+      <a class="proj-card" href="https://github.com/aniruddha-raje/springboot-mongodb-app" target="_blank" rel="noopener">
+        <div class="proj-top">
+          <span class="proj-name">springboot-mongodb-app</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+        <p class="proj-desc">A Spring Boot service backed by MongoDB, pairing the framework's REST layer with document-based persistence.</p>
+        <div class="proj-lang"><span class="lang-dot lang-java"></span>Java</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <h2>Let's build something.</h2>
+    <p>Open to backend roles.</p>
+    <a class="btn btn-primary" href="https://github.com/aniruddha-raje" target="_blank" rel="noopener">github.com/aniruddha-raje →</a>
+  </section>
+
+</main>
+
+<footer>
+  Thanks for dropping by!
+</footer>
+
+<script>
+  const lines = [
+    { prompt: '$', text: 'whoami', type: 'cmd' },
+    { prompt: '', text: '<span class="k">aniruddha-raje</span> — senior backend engineer', type: 'out' },
+    { prompt: '$', text: 'cat role.txt', type: 'cmd' },
+    { prompt: '', text: 'Senior Software Engineer · Staff Engineer · Forward Deployed Engineer · AWS Cloud Engineer', type: 'out' },
+    { prompt: '$', text: 'git status', type: 'cmd' },
+    { prompt: '', text: '<span class="k">16</span> repositories, actively shipping', type: 'out' },
+  ];
+
+  const body = document.getElementById('termBody');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function renderStatic(){
+    lines.forEach(l => {
+      const row = document.createElement('div');
+      row.className = 'term-line';
+      row.innerHTML = `<span class="term-prompt">${l.prompt}</span><span class="term-out">${l.text}</span>`;
+      body.appendChild(row);
+    });
+  }
+
+  async function typeLine(promptEl, textEl, text, speed){
+    for(let i=0;i<=text.length;i++){
+      textEl.textContent = text.slice(0,i);
+      await new Promise(r=>setTimeout(r, speed));
+    }
+  }
+
+  async function playSequence(){
+    for(const l of lines){
+      const row = document.createElement('div');
+      row.className = 'term-line';
+      const promptSpan = document.createElement('span');
+      promptSpan.className = 'term-prompt';
+      promptSpan.textContent = l.prompt;
+      const outSpan = document.createElement('span');
+      outSpan.className = 'term-out';
+      row.appendChild(promptSpan);
+      row.appendChild(outSpan);
+      body.appendChild(row);
+
+      if(l.type === 'cmd'){
+        const cursor = document.createElement('span');
+        cursor.className = 'cursor';
+        row.appendChild(cursor);
+        for(let i=0;i<=l.text.length;i++){
+          outSpan.textContent = l.text.slice(0,i);
+          await new Promise(r=>setTimeout(r, 38));
+        }
+        cursor.remove();
+        await new Promise(r=>setTimeout(r, 180));
+      } else {
+        outSpan.innerHTML = l.text;
+        await new Promise(r=>setTimeout(r, 260));
+      }
+    }
+  }
+
+  if(reduceMotion){
+    renderStatic();
+  } else {
+    playSequence();
+  }
+</script>
+
+</body>
+</html>
