@@ -237,6 +237,23 @@
     font-weight: 600;
     margin-bottom: 34px;
   }
+  .section-head-row{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 34px;
+  }
+  .section-head-row h2{ margin-bottom: 0; }
+  .section-link{
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--teal);
+    white-space: nowrap;
+    transition: color 0.2s ease;
+  }
+  .section-link:hover{ color: var(--amber); }
 
   /* ---------- STACK ---------- */
   .stack-grid{
@@ -320,6 +337,35 @@
   .lang-java{ background: var(--amber); }
   .lang-js{ background: var(--teal); }
 
+  /* ---------- CERTIFICATIONS ---------- */
+  .cert-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .cert-card{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .cert-card:hover{
+    border-color: var(--amber-dim);
+    background: var(--surface-hover);
+    transform: translateY(-3px);
+  }
+  .cert-card:hover .proj-arrow{ transform: translate(3px,-3px); color: var(--amber); }
+  .cert-card .proj-name{ font-size: 14.5px; line-height: 1.35; }
+  .cert-issuer{
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--text-faint);
+  }
+  
   /* ---------- CONTACT / FOOTER ---------- */
   .contact{
     padding: 70px 0 40px;
@@ -377,9 +423,6 @@
         <p class="hero-sub">Hands-on software professional with 10 years of experience designing solutions, architecting systems, and developing cloud-native backend microservices on AWS using Node.js, Python, and Java.</p>
         <div class="hero-meta">
           <span>📍 Melbourne, Victoria</span>
-        </div>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="https://github.com/aniruddha-raje" target="_blank" rel="noopener">View GitHub profile →</a>
         </div>
       </div>
 
@@ -484,9 +527,52 @@
     </div>
   </section>
 
+  <section class="section" id="certifications">
+    <div class="comment">certs --verified</div>
+    <h2>Certifications</h2>
+    <div class="cert-grid">
+ 
+      <a class="cert-card" href="https://www.credly.com/badges/b17649d8-6372-493c-b801-a34963505cd2/public_url" target="_blank" rel="noopener">
+        <div class="proj-top">
+          <span class="proj-name">AWS Certified Solutions Architect – Associate</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+        <p class="cert-issuer">Amazon Web Services (AWS)</p>
+      </a>
+ 
+      <a class="cert-card" href="https://www.credly.com/badges/0d23aa1b-237e-4741-9636-92696d17f671/public_url" target="_blank" rel="noopener">
+        <div class="proj-top">
+          <span class="proj-name">AWS Certified Developer – Associate</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+        <p class="cert-issuer">Amazon Web Services (AWS)</p>
+      </a>
+ 
+      <a class="cert-card" href="https://bcert.me/bc/html/show-badge.html?b=hxwldlkj" target="_blank" rel="noopener">
+        <div class="proj-top">
+          <span class="proj-name">Advanced Certified Scrum Product Owner (A-CSPO)</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+        <p class="cert-issuer">Scrum Alliance</p>
+      </a>
+ 
+      <a class="cert-card" href="https://bcert.me/bc/html/show-badge.html?b=wjgcimau" target="_blank" rel="noopener">
+        <div class="proj-top">
+          <span class="proj-name">Certified ScrumMaster (CSM)</span>
+          <span class="proj-arrow">↗</span>
+        </div>
+        <p class="cert-issuer">Scrum Alliance</p>
+      </a>
+ 
+    </div>
+  </section>
+
   <section class="section" id="projects">
     <div class="comment">git log --recent</div>
-    <h2>Projects</h2>
+    <div class="section-head-row">
+      <h2>Projects</h2>
+      <a class="section-link" href="https://github.com/aniruddha-raje?tab=repositories" target="_blank" rel="noopener">View all repositories on GitHub →</a>
+    </div>
     <div class="proj-grid">
 
       <a class="proj-card" href="https://github.com/aniruddha-raje/FastAPI-crud" target="_blank" rel="noopener">
